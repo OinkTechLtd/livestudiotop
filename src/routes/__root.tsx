@@ -82,10 +82,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { title: "LiveStudio — потоки и живой чат без регистрации" },
       { name: "description", content: "Вставьте ссылку на поток, задайте расписание и смотрите в современном плеере с живым чатом. Встраивайте на свой сайт. Без регистрации." },
       { name: "author", content: "LiveStudio" },
-      { property: "og:title", content: "LiveStudio" },
-      { property: "og:description", content: "Потоки и живой чат без регистрации." },
+      { property: "og:title", content: "LiveStudio — потоки и живой чат без регистрации" },
+      { property: "og:description", content: "Вставьте ссылку на поток, задайте расписание и смотрите в современном плеере с живым чатом. Встраивайте на свой сайт. Без регистрации." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "LiveStudio — потоки и живой чат без регистрации" },
+      { name: "twitter:description", content: "Вставьте ссылку на поток, задайте расписание и смотрите в современном плеере с живым чатом. Встраивайте на свой сайт. Без регистрации." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/728a930c-cef4-4506-bfa5-b49a4599ab7f/id-preview-24706f4f--6fc5a071-1df3-454c-8f15-0ae5c1a16d7f.lovable.app-1780543960945.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/728a930c-cef4-4506-bfa5-b49a4599ab7f/id-preview-24706f4f--6fc5a071-1df3-454c-8f15-0ae5c1a16d7f.lovable.app-1780543960945.png" },
     ],
     links: [
       {
