@@ -14,7 +14,68 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      channels: {
+        Row: {
+          created_at: string
+          id: string
+          owner_token: string
+          scheduled_at: string | null
+          stream_type: string
+          stream_url: string
+          title: string | null
+        }
+        Insert: {
+          created_at?: string
+          id: string
+          owner_token: string
+          scheduled_at?: string | null
+          stream_type?: string
+          stream_url: string
+          title?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          owner_token?: string
+          scheduled_at?: string | null
+          stream_type?: string
+          stream_url?: string
+          title?: string | null
+        }
+        Relationships: []
+      }
+      messages: {
+        Row: {
+          author_name: string
+          body: string
+          channel_id: string
+          created_at: string
+          id: string
+        }
+        Insert: {
+          author_name: string
+          body: string
+          channel_id: string
+          created_at?: string
+          id?: string
+        }
+        Update: {
+          author_name?: string
+          body?: string
+          channel_id?: string
+          created_at?: string
+          id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "messages_channel_id_fkey"
+            columns: ["channel_id"]
+            isOneToOne: false
+            referencedRelation: "channels"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
