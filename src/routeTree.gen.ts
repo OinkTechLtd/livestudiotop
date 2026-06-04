@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TermsRouteImport } from './routes/terms'
 import { Route as StudioRouteImport } from './routes/studio'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as DocsRouteImport } from './routes/docs'
@@ -16,6 +17,11 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as WatchChannelIdRouteImport } from './routes/watch.$channelId'
 import { Route as EmbedChannelIdRouteImport } from './routes/embed.$channelId'
 
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const StudioRoute = StudioRouteImport.update({
   id: '/studio',
   path: '/studio',
@@ -52,6 +58,7 @@ export interface FileRoutesByFullPath {
   '/docs': typeof DocsRoute
   '/faq': typeof FaqRoute
   '/studio': typeof StudioRoute
+  '/terms': typeof TermsRoute
   '/embed/$channelId': typeof EmbedChannelIdRoute
   '/watch/$channelId': typeof WatchChannelIdRoute
 }
@@ -60,6 +67,7 @@ export interface FileRoutesByTo {
   '/docs': typeof DocsRoute
   '/faq': typeof FaqRoute
   '/studio': typeof StudioRoute
+  '/terms': typeof TermsRoute
   '/embed/$channelId': typeof EmbedChannelIdRoute
   '/watch/$channelId': typeof WatchChannelIdRoute
 }
@@ -69,6 +77,7 @@ export interface FileRoutesById {
   '/docs': typeof DocsRoute
   '/faq': typeof FaqRoute
   '/studio': typeof StudioRoute
+  '/terms': typeof TermsRoute
   '/embed/$channelId': typeof EmbedChannelIdRoute
   '/watch/$channelId': typeof WatchChannelIdRoute
 }
@@ -79,6 +88,7 @@ export interface FileRouteTypes {
     | '/docs'
     | '/faq'
     | '/studio'
+    | '/terms'
     | '/embed/$channelId'
     | '/watch/$channelId'
   fileRoutesByTo: FileRoutesByTo
@@ -87,6 +97,7 @@ export interface FileRouteTypes {
     | '/docs'
     | '/faq'
     | '/studio'
+    | '/terms'
     | '/embed/$channelId'
     | '/watch/$channelId'
   id:
@@ -95,6 +106,7 @@ export interface FileRouteTypes {
     | '/docs'
     | '/faq'
     | '/studio'
+    | '/terms'
     | '/embed/$channelId'
     | '/watch/$channelId'
   fileRoutesById: FileRoutesById
@@ -104,12 +116,20 @@ export interface RootRouteChildren {
   DocsRoute: typeof DocsRoute
   FaqRoute: typeof FaqRoute
   StudioRoute: typeof StudioRoute
+  TermsRoute: typeof TermsRoute
   EmbedChannelIdRoute: typeof EmbedChannelIdRoute
   WatchChannelIdRoute: typeof WatchChannelIdRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/studio': {
       id: '/studio'
       path: '/studio'
@@ -160,6 +180,7 @@ const rootRouteChildren: RootRouteChildren = {
   DocsRoute: DocsRoute,
   FaqRoute: FaqRoute,
   StudioRoute: StudioRoute,
+  TermsRoute: TermsRoute,
   EmbedChannelIdRoute: EmbedChannelIdRoute,
   WatchChannelIdRoute: WatchChannelIdRoute,
 }
