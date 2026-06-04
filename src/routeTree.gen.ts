@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as StudioRouteImport } from './routes/studio'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as DocsRouteImport } from './routes/docs'
@@ -26,6 +27,11 @@ const TermsRoute = TermsRouteImport.update({
 const StudioRoute = StudioRouteImport.update({
   id: '/studio',
   path: '/studio',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PrivacyRoute = PrivacyRouteImport.update({
@@ -64,6 +70,7 @@ export interface FileRoutesByFullPath {
   '/docs': typeof DocsRoute
   '/faq': typeof FaqRoute
   '/privacy': typeof PrivacyRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/studio': typeof StudioRoute
   '/terms': typeof TermsRoute
   '/embed/$channelId': typeof EmbedChannelIdRoute
@@ -74,6 +81,7 @@ export interface FileRoutesByTo {
   '/docs': typeof DocsRoute
   '/faq': typeof FaqRoute
   '/privacy': typeof PrivacyRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/studio': typeof StudioRoute
   '/terms': typeof TermsRoute
   '/embed/$channelId': typeof EmbedChannelIdRoute
@@ -85,6 +93,7 @@ export interface FileRoutesById {
   '/docs': typeof DocsRoute
   '/faq': typeof FaqRoute
   '/privacy': typeof PrivacyRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/studio': typeof StudioRoute
   '/terms': typeof TermsRoute
   '/embed/$channelId': typeof EmbedChannelIdRoute
@@ -97,6 +106,7 @@ export interface FileRouteTypes {
     | '/docs'
     | '/faq'
     | '/privacy'
+    | '/sitemap.xml'
     | '/studio'
     | '/terms'
     | '/embed/$channelId'
@@ -107,6 +117,7 @@ export interface FileRouteTypes {
     | '/docs'
     | '/faq'
     | '/privacy'
+    | '/sitemap.xml'
     | '/studio'
     | '/terms'
     | '/embed/$channelId'
@@ -117,6 +128,7 @@ export interface FileRouteTypes {
     | '/docs'
     | '/faq'
     | '/privacy'
+    | '/sitemap.xml'
     | '/studio'
     | '/terms'
     | '/embed/$channelId'
@@ -128,6 +140,7 @@ export interface RootRouteChildren {
   DocsRoute: typeof DocsRoute
   FaqRoute: typeof FaqRoute
   PrivacyRoute: typeof PrivacyRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   StudioRoute: typeof StudioRoute
   TermsRoute: typeof TermsRoute
   EmbedChannelIdRoute: typeof EmbedChannelIdRoute
@@ -148,6 +161,13 @@ declare module '@tanstack/react-router' {
       path: '/studio'
       fullPath: '/studio'
       preLoaderRoute: typeof StudioRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/privacy': {
@@ -200,6 +220,7 @@ const rootRouteChildren: RootRouteChildren = {
   DocsRoute: DocsRoute,
   FaqRoute: FaqRoute,
   PrivacyRoute: PrivacyRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   StudioRoute: StudioRoute,
   TermsRoute: TermsRoute,
   EmbedChannelIdRoute: EmbedChannelIdRoute,
