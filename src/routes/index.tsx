@@ -34,21 +34,22 @@ function Index() {
         <div className="absolute inset-0 bg-hero-glow" />
         <div className="relative mx-auto max-w-4xl px-4 py-24 text-center">
           <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-border bg-card/60 px-4 py-1.5 text-xs text-muted-foreground">
-            <Radio className="h-3.5 w-3.5 text-primary" /> Запускайте трансляции без регистрации
+            <Radio className="h-3.5 w-3.5 text-primary" /> Создавайте телеканалы без регистрации
           </div>
           <h1 className="text-balance text-4xl font-extrabold leading-tight tracking-tight sm:text-6xl">
-            Ваш поток. Ваш плеер. <span className="text-primary">Ваш чат.</span>
+            Свой телеканал. <span className="text-primary">Свой эфир 24/7.</span>
           </h1>
           <p className="mx-auto mt-5 max-w-2xl text-balance text-lg text-muted-foreground">
-            Вставьте ссылку на трансляцию, задайте время показа и получите современный плеер с живым
-            чатом. Встраивайте на свой сайт одной строкой кода.
+            Соберите независимый телеканал в стиле ТНТ или СТС: расписание передач, премьеры,
+            реклама, логотип и живой чат. Эфир синхронен у всех зрителей. Встраивайте на сайт или
+            смотрите в IPTV.
           </p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
             <Link
               to="/studio"
               className="rounded-xl bg-primary px-6 py-3 font-semibold text-primary-foreground shadow-glow transition hover:opacity-90"
             >
-              Создать трансляцию
+              Создать телеканал
             </Link>
             <Link
               to="/docs"
