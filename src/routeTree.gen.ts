@@ -19,6 +19,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as WatchChannelIdRouteImport } from './routes/watch.$channelId'
 import { Route as ManageChannelIdRouteImport } from './routes/manage.$channelId'
 import { Route as EmbedChannelIdRouteImport } from './routes/embed.$channelId'
+import { Route as ApiPublicChannelChannelIdDotm3u8RouteImport } from './routes/api/public/channel.$channelId[.]m3u8'
 
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
@@ -70,6 +71,12 @@ const EmbedChannelIdRoute = EmbedChannelIdRouteImport.update({
   path: '/embed/$channelId',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicChannelChannelIdDotm3u8Route =
+  ApiPublicChannelChannelIdDotm3u8RouteImport.update({
+    id: '/api/public/channel/$channelId.m3u8',
+    path: '/api/public/channel/$channelId.m3u8',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -82,6 +89,7 @@ export interface FileRoutesByFullPath {
   '/embed/$channelId': typeof EmbedChannelIdRoute
   '/manage/$channelId': typeof ManageChannelIdRoute
   '/watch/$channelId': typeof WatchChannelIdRoute
+  '/api/public/channel/$channelId.m3u8': typeof ApiPublicChannelChannelIdDotm3u8Route
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -94,6 +102,7 @@ export interface FileRoutesByTo {
   '/embed/$channelId': typeof EmbedChannelIdRoute
   '/manage/$channelId': typeof ManageChannelIdRoute
   '/watch/$channelId': typeof WatchChannelIdRoute
+  '/api/public/channel/$channelId.m3u8': typeof ApiPublicChannelChannelIdDotm3u8Route
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -107,6 +116,7 @@ export interface FileRoutesById {
   '/embed/$channelId': typeof EmbedChannelIdRoute
   '/manage/$channelId': typeof ManageChannelIdRoute
   '/watch/$channelId': typeof WatchChannelIdRoute
+  '/api/public/channel/$channelId.m3u8': typeof ApiPublicChannelChannelIdDotm3u8Route
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -121,6 +131,7 @@ export interface FileRouteTypes {
     | '/embed/$channelId'
     | '/manage/$channelId'
     | '/watch/$channelId'
+    | '/api/public/channel/$channelId.m3u8'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -133,6 +144,7 @@ export interface FileRouteTypes {
     | '/embed/$channelId'
     | '/manage/$channelId'
     | '/watch/$channelId'
+    | '/api/public/channel/$channelId.m3u8'
   id:
     | '__root__'
     | '/'
@@ -145,6 +157,7 @@ export interface FileRouteTypes {
     | '/embed/$channelId'
     | '/manage/$channelId'
     | '/watch/$channelId'
+    | '/api/public/channel/$channelId.m3u8'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -158,6 +171,7 @@ export interface RootRouteChildren {
   EmbedChannelIdRoute: typeof EmbedChannelIdRoute
   ManageChannelIdRoute: typeof ManageChannelIdRoute
   WatchChannelIdRoute: typeof WatchChannelIdRoute
+  ApiPublicChannelChannelIdDotm3u8Route: typeof ApiPublicChannelChannelIdDotm3u8Route
 }
 
 declare module '@tanstack/react-router' {
@@ -232,6 +246,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EmbedChannelIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/channel/$channelId.m3u8': {
+      id: '/api/public/channel/$channelId.m3u8'
+      path: '/api/public/channel/$channelId.m3u8'
+      fullPath: '/api/public/channel/$channelId.m3u8'
+      preLoaderRoute: typeof ApiPublicChannelChannelIdDotm3u8RouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -246,7 +267,18 @@ const rootRouteChildren: RootRouteChildren = {
   EmbedChannelIdRoute: EmbedChannelIdRoute,
   ManageChannelIdRoute: ManageChannelIdRoute,
   WatchChannelIdRoute: WatchChannelIdRoute,
+  ApiPublicChannelChannelIdDotm3u8Route: ApiPublicChannelChannelIdDotm3u8Route,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
