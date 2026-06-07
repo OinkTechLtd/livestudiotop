@@ -8,7 +8,9 @@ import {
   makeChannelId,
   makeToken,
   saveOwned,
+  validateStreamUrl,
 } from "@/lib/livestudio";
+import { defaultConfig } from "@/lib/broadcast";
 
 export const Route = createFileRoute("/studio")({
   head: () => ({
