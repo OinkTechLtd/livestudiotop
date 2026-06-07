@@ -68,6 +68,42 @@ export function saveOwned(channelId: string, token: string) {
 export function ownerTokenFor(channelId: string): string | null {
   return getOwnedTokens()[channelId] ?? null;
 }
+export function releaseOwned(channelId: string) {
+  if (!isBrowser) return;
+  const all = getOwnedTokens();
+  delete all[channelId];
+  localStorage.setItem(OWNED_KEY, JSON.stringify(all));
+}
+
+// ---- Stream link validation: link must be playable in a player ----
+export function validateStreamUrl(raw: string): { ok: boolean; kind?: StreamKind; error?: string } {
+  const url = raw.trim();
+  if (!/^https?:\/\//i.test(url)) {
+    return { ok: false, error: "Ссылка должна начинаться с http:// или https://" };
+  }
+  const kind = detectStreamKind(url);
+  if (kind === "youtube" && !youtubeId(url)) {
+    return { ok: false, error: "Не удалось распознать видео YouTube в ссылке" };
+  }
+  if (kind === "twitch" && !twitchChannel(url)) {
+    return { ok: false, error: "Не удалось распознать канал Twitch в ссылке" };
+  }
+  if (kind === "iframe") {
+    const lower = url.toLowerCase();
+    const looksEmbeddable =
+      /embed|player|\/e\/|iframe|vk\.com\/video|rutube\.ru|dzen\.ru|ok\.ru\/video|vimeo\.com|dailymotion\.com/.test(
+        lower,
+      );
+    if (!looksEmbeddable) {
+      return {
+        ok: false,
+        error:
+          "Эта ссылка не похожа на плеер. Нужна ссылка на видео/поток (YouTube, Twitch, .m3u8, .mp4) или встраиваемый плеер.",
+      };
+    }
+  }
+  return { ok: true, kind };
+}
 
 // ---- Display name ----
 const NAME_KEY = "livestudio.name.v1";

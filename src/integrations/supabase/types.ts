@@ -16,6 +16,7 @@ export type Database = {
     Tables: {
       channels: {
         Row: {
+          config: Json
           created_at: string
           id: string
           owner_token: string
@@ -23,8 +24,10 @@ export type Database = {
           stream_type: string
           stream_url: string
           title: string | null
+          updated_at: string
         }
         Insert: {
+          config?: Json
           created_at?: string
           id: string
           owner_token: string
@@ -32,8 +35,10 @@ export type Database = {
           stream_type?: string
           stream_url: string
           title?: string | null
+          updated_at?: string
         }
         Update: {
+          config?: Json
           created_at?: string
           id?: string
           owner_token?: string
@@ -41,6 +46,7 @@ export type Database = {
           stream_type?: string
           stream_url?: string
           title?: string | null
+          updated_at?: string
         }
         Relationships: []
       }
