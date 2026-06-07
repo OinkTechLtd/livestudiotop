@@ -34,8 +34,9 @@ function Studio() {
     e.preventDefault();
     setError(null);
     const trimmed = url.trim();
-    if (!/^https?:\/\//i.test(trimmed)) {
-      setError("Введите корректную ссылку, начинающуюся с http(s)://");
+    const v = validateStreamUrl(trimmed);
+    if (!v.ok) {
+      setError(v.error || "Некорректная ссылка");
       return;
     }
     setLoading(true);
@@ -48,14 +49,15 @@ function Studio() {
       stream_type: detectStreamKind(trimmed),
       scheduled_at: schedule ? new Date(schedule).toISOString() : null,
       owner_token: token,
+      config: defaultConfig(title.trim() || "Мой канал") as never,
     });
     if (insErr) {
       setLoading(false);
-      setError("Не удалось создать трансляцию. Попробуйте ещё раз.");
+      setError("Не удалось создать канал. Попробуйте ещё раз.");
       return;
     }
     saveOwned(id, token);
-    navigate({ to: "/watch/$channelId", params: { channelId: id } });
+    navigate({ to: "/manage/$channelId", params: { channelId: id } });
   };
 
   return (
