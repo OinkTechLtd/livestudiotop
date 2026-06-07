@@ -1,30 +1,30 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Radio, Code2, MessagesSquare, Clock, Gauge, ShieldCheck, Play } from "lucide-react";
+import { Radio, Code2, MessagesSquare, CalendarClock, Megaphone, Tv, Play } from "lucide-react";
 import { PageShell } from "@/components/PageShell";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "LiveStudio — потоки и живой чат без регистрации" },
+      { title: "LiveStudio — создай свой телеканал онлайн без регистрации" },
       {
         name: "description",
         content:
-          "Вставьте ссылку на поток, задайте время показа и смотрите в современном плеере с живым чатом. Встраивайте на сайт через iframe или JS. Без регистрации.",
+          "Соберите собственный телеканал: расписание эфира, премьеры в стиле ТВ, реклама, логотип и живой чат. Синхронный эфир 24/7 у всех зрителей, встраивание на сайт и ссылка для IPTV. Без регистрации.",
       },
-      { property: "og:title", content: "LiveStudio" },
-      { property: "og:description", content: "Потоки и живой чат без регистрации." },
+      { property: "og:title", content: "LiveStudio — твой телеканал" },
+      { property: "og:description", content: "Создай независимый телеканал с расписанием, премьерами и рекламой." },
     ],
   }),
   component: Index,
 });
 
 const features = [
-  { icon: Play, title: "Плеер в стиле 2026", text: "Перемотка, скорость, PiP, полный экран и горячее управление — как на YouTube." },
-  { icon: Clock, title: "Расписание показа", text: "Укажите, когда поток начнётся — зрители увидят обратный отсчёт." },
+  { icon: CalendarClock, title: "Расписание 24/7", text: "Задайте сетку эфира: передачи и премьеры в точное время — у всех зрителей синхронно." },
+  { icon: Tv, title: "Премьеры как на ТВ", text: "Плашка «ПРЕМЬЕРА», логотип канала и титры поверх видео — в стиле ТНТ/СТС." },
+  { icon: Megaphone, title: "Реклама и преролл", text: "Вставки каждые N минут, ваши ролики или партнёрка, заглушка с контактом." },
   { icon: MessagesSquare, title: "Живой реальный чат", text: "Общий чат канала в реальном времени. Владелец удаляет сообщения." },
-  { icon: Code2, title: "Встраивание", text: "Готовый iframe и JS-код, чтобы вставить плеер и чат на любой сайт." },
-  { icon: Gauge, title: "Без регистрации", text: "Настройки хранятся локально в браузере. Создал ссылку — поделился." },
-  { icon: ShieldCheck, title: "Любые источники", text: "YouTube, Twitch, HLS (.m3u8), MP4 и другие прямые ссылки." },
+  { icon: Code2, title: "Встраивание и IPTV", text: "iframe, JS-код и ссылка .m3u8 для IPTV-плееров." },
+  { icon: Radio, title: "Полная кастомизация", text: "Логотип, цвета, название, заглушка — настройте канал под себя. Без регистрации." },
 ];
 
 function Index() {
