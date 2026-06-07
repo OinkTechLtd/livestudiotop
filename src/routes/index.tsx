@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Radio, Code2, MessagesSquare, CalendarClock, Megaphone, Tv, Play } from "lucide-react";
+import { Radio, Code2, MessagesSquare, CalendarClock, Megaphone, Tv } from "lucide-react";
 import { PageShell } from "@/components/PageShell";
 
 export const Route = createFileRoute("/")({
