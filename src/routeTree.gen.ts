@@ -17,6 +17,7 @@ import { Route as FaqRouteImport } from './routes/faq'
 import { Route as DocsRouteImport } from './routes/docs'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as WatchChannelIdRouteImport } from './routes/watch.$channelId'
+import { Route as ManageChannelIdRouteImport } from './routes/manage.$channelId'
 import { Route as EmbedChannelIdRouteImport } from './routes/embed.$channelId'
 
 const TermsRoute = TermsRouteImport.update({
@@ -59,6 +60,11 @@ const WatchChannelIdRoute = WatchChannelIdRouteImport.update({
   path: '/watch/$channelId',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ManageChannelIdRoute = ManageChannelIdRouteImport.update({
+  id: '/manage/$channelId',
+  path: '/manage/$channelId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const EmbedChannelIdRoute = EmbedChannelIdRouteImport.update({
   id: '/embed/$channelId',
   path: '/embed/$channelId',
@@ -74,6 +80,7 @@ export interface FileRoutesByFullPath {
   '/studio': typeof StudioRoute
   '/terms': typeof TermsRoute
   '/embed/$channelId': typeof EmbedChannelIdRoute
+  '/manage/$channelId': typeof ManageChannelIdRoute
   '/watch/$channelId': typeof WatchChannelIdRoute
 }
 export interface FileRoutesByTo {
@@ -85,6 +92,7 @@ export interface FileRoutesByTo {
   '/studio': typeof StudioRoute
   '/terms': typeof TermsRoute
   '/embed/$channelId': typeof EmbedChannelIdRoute
+  '/manage/$channelId': typeof ManageChannelIdRoute
   '/watch/$channelId': typeof WatchChannelIdRoute
 }
 export interface FileRoutesById {
@@ -97,6 +105,7 @@ export interface FileRoutesById {
   '/studio': typeof StudioRoute
   '/terms': typeof TermsRoute
   '/embed/$channelId': typeof EmbedChannelIdRoute
+  '/manage/$channelId': typeof ManageChannelIdRoute
   '/watch/$channelId': typeof WatchChannelIdRoute
 }
 export interface FileRouteTypes {
@@ -110,6 +119,7 @@ export interface FileRouteTypes {
     | '/studio'
     | '/terms'
     | '/embed/$channelId'
+    | '/manage/$channelId'
     | '/watch/$channelId'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -121,6 +131,7 @@ export interface FileRouteTypes {
     | '/studio'
     | '/terms'
     | '/embed/$channelId'
+    | '/manage/$channelId'
     | '/watch/$channelId'
   id:
     | '__root__'
@@ -132,6 +143,7 @@ export interface FileRouteTypes {
     | '/studio'
     | '/terms'
     | '/embed/$channelId'
+    | '/manage/$channelId'
     | '/watch/$channelId'
   fileRoutesById: FileRoutesById
 }
@@ -144,6 +156,7 @@ export interface RootRouteChildren {
   StudioRoute: typeof StudioRoute
   TermsRoute: typeof TermsRoute
   EmbedChannelIdRoute: typeof EmbedChannelIdRoute
+  ManageChannelIdRoute: typeof ManageChannelIdRoute
   WatchChannelIdRoute: typeof WatchChannelIdRoute
 }
 
@@ -205,6 +218,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof WatchChannelIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/manage/$channelId': {
+      id: '/manage/$channelId'
+      path: '/manage/$channelId'
+      fullPath: '/manage/$channelId'
+      preLoaderRoute: typeof ManageChannelIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/embed/$channelId': {
       id: '/embed/$channelId'
       path: '/embed/$channelId'
@@ -224,8 +244,19 @@ const rootRouteChildren: RootRouteChildren = {
   StudioRoute: StudioRoute,
   TermsRoute: TermsRoute,
   EmbedChannelIdRoute: EmbedChannelIdRoute,
+  ManageChannelIdRoute: ManageChannelIdRoute,
   WatchChannelIdRoute: WatchChannelIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
