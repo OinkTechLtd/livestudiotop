@@ -8,7 +8,7 @@ export const Route = createFileRoute("/api/public/channel/$channelId.m3u8")({
   server: {
     handlers: {
       GET: async ({ params }) => {
-        const id = params.channelId;
+        const id = (params as Record<string, string>)["channelId.m3u8"] ?? (params as Record<string, string>).channelId;
         if (!id || id.length > 64) {
           return new Response("Bad request", { status: 400 });
         }
