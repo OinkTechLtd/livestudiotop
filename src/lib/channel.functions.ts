@@ -33,11 +33,16 @@ export const updateChannel = createServerFn({ method: "POST" })
       throw new Error("Недостаточно прав для редактирования канала");
     }
 
-    const patch: Record<string, unknown> = {};
+    const patch: {
+      title?: string | null;
+      stream_url?: string;
+      scheduled_at?: string | null;
+      config?: never;
+    } = {};
     if (data.title !== undefined) patch.title = data.title;
     if (data.streamUrl !== undefined) patch.stream_url = data.streamUrl;
     if (data.scheduledAt !== undefined) patch.scheduled_at = data.scheduledAt;
-    if (data.config !== undefined) patch.config = data.config;
+    if (data.config !== undefined) patch.config = data.config as never;
 
     const { error: updErr } = await supabaseAdmin
       .from("channels")
